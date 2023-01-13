@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
-import "./App.css"
 
 const Form = styled.form`
       background-image: url(https://dadabooksearch.netlify.app/images/headerbg.jpg);
@@ -26,8 +25,8 @@ const SearchContainer = styled.div`
 
 const Title = styled.h1`
   margin: 0px 0px 20px;
-    display: block;
-    color: white;
+  display: block;
+  color: white;
     text-align: center;
   `
 const Inputdiv = styled.div`
@@ -54,7 +53,18 @@ const Svg = styled.svg`
     transition: all 0.2s ease 0s;
   `
 
-const Cards = styled.div`
+
+const Img = styled.img`
+    width: 95%;
+    height: 220px;
+    margin-left: auto;
+    object-fit: contain;
+    margin-right: auto;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+`
+
+const Cardss = styled.div`
     width: 98%;
     margin: 20px auto auto;
     min-height: 55vh;
@@ -86,7 +96,39 @@ const Author = styled.h6`
     font-size: 16px;
     opacity: 0.7;
 `
+const BtnDiv = styled.div`
+    display: flex;
+    justify-content: space-around;
+`
+const Button = styled.button` 
+    border: 1px solid gray;
+    background-color: transparent;
+    width: 100px;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.5s all ease;
+    &:hover{
+        background-color: gray;
+        color: aliceblue;
+    }
+`
 
+const Preview = styled.a`
+text-decoration: none;
+color: black;
+border: 1px solid gray;
+    background-color: transparent;
+    width: 100px;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.5s all ease;
+    &:hover{
+        background-color: gray;
+        color: aliceblue;
+    }
+`
 
 
 function App() {
@@ -110,9 +152,6 @@ function App() {
     datas();
   };
 
-
-
-
   return (
     <div className="App">
       <Form onSubmit={onSubmitHandler}>
@@ -131,22 +170,22 @@ function App() {
         </SearchContainer>
       </Form>
 
-      <Cards>
+      <Cardss>
         {data.items.map((book, index) => {
           return (
             <Card key={index}>
 
-              <img src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`} alt="foto" />
+              <Img src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`} alt="foto" />
               <CardTitle>{book.volumeInfo.title}</CardTitle>
               <Author>{book.volumeInfo.authors}</Author>
-              
-              <button>Preview</button>
-              <button>Detail</button>
-
+              <BtnDiv>
+                <Preview href={book.volumeInfo.infoLink}>Preview</Preview>
+                <Button>Detail</Button>
+              </BtnDiv>
             </Card>
           )
         })}
-      </Cards>
+      </Cardss>
 
     </div>
   );
